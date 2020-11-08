@@ -75,7 +75,7 @@ window.onload = function() {
             gradient: {
               stops: ['#e2dedb', '#a5b6ca', '#6795ca', '#5d5fb9'],
             },
-            origin: [0, windowHeight],
+            origin: [0, window.innerHeight],
             destination: [0, 0]
           }
         })
@@ -99,12 +99,10 @@ window.onload = function() {
       function handleResize() {
         windowWidth = window.innerWidth
         windowHeight = window.innerHeight
-        p.view.setViewSize(new p.Size(windowWidth, windowHeight));
+        // p.view.setViewSize(new p.Size(windowWidth, windowHeight));
         background.activate()
-        rectangle.point = new p.Point(0, 0)
-        rectangle.setSize(windowWidth, windowHeight)
-        rectangle.fillColor.origin = new p.Point(0, windowHeight)
-        rectangle.fillColor.destination = new p.Point(0, 0)
+        rectangle.position = new Point(windowWidth/2,windowHeight/2)
+        rectangle.set({size: [windowWidth, windowHeight]})
         repositionStars()
       }
       window.addEventListener('resize', handleResize)

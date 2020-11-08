@@ -23966,6 +23966,13 @@ window.onload = function () {
         this.star.opacity = 0;
       }
     }, {
+      key: "reposition",
+      value: function reposition() {
+        this.x = this.getRandomInt(1, windowWidth);
+        this.y = this.getRandomInt(1, windowHeight);
+        this.star.position = new p.Point(this.x, this.y);
+      }
+    }, {
       key: "update",
       value: function update(event, twinkle) {
         // if (this.start < event.time || this.star.opacity < 1 && !this.complete) {
@@ -23980,20 +23987,29 @@ window.onload = function () {
     }]);
 
     return Star;
-  }(); // #c4d7e2, #718AA6, #1A2848 90%
+  }();
 
+  var rectangle = null;
+  var background = new p.Layer();
 
-  var rectangle = new p.Shape.Rectangle({
-    point: [0, 0],
-    size: [windowWidth, windowHeight],
-    fillColor: {
-      gradient: {
-        stops: ['#e2dedb', '#a5b6ca', '#6795ca', '#5d5fb9']
-      },
-      origin: [0, windowHeight],
-      destination: [0, 0]
-    }
-  });
+  function drawSky() {
+    background.activate();
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+    rectangle = new p.Shape.Rectangle({
+      point: [0, 0],
+      size: [windowWidth, windowHeight],
+      fillColor: {
+        gradient: {
+          stops: ['#e2dedb', '#a5b6ca', '#6795ca', '#5d5fb9']
+        },
+        origin: [0, windowHeight],
+        destination: [0, 0]
+      }
+    });
+  }
+
+  drawSky();
   var sky = new p.Layer();
   sky.blendMode = 'lighten';
   sky.opacity = 0;
@@ -24007,14 +24023,21 @@ window.onload = function () {
 
   p.view.draw();
 
-  p.view.onResize = function (event) {
-    console.log(event); // windowWidth = window.innerWidth
-    // windowHeight = window.innerHeight
-    // p.view.width = windowWidth
-    // p.view.height = windowHeight
-    // rectangle.width = windowWidth
-    // rectangle.height = windowHeight
-  };
+  function handleResize() {
+    windowWidth = window.innerWidth;
+    windowHeight = window.innerHeight;
+    p.view.setViewSize(new paper.Size(windowWidth, windowHeight));
+    drawSky();
+    repositionStars();
+  }
+
+  window.addEventListener('resize', handleResize);
+
+  function repositionStars() {
+    for (var i = 0; i < totalStars; i++) {
+      stars[i].reposition();
+    }
+  }
 
   p.view.onFrame = function (event) {
     if (sky.opacity < 1) {
@@ -24095,23 +24118,33 @@ window.onload = function () {
   var rsvp = document.querySelector(".rsvp");
   rsvp.addEventListener('click', function () {
     (0, _dataFlip.default)(document.body, 'form');
-  });
-  var formElement = document.queryCommandEnabled('form');
-  formElement.addEventListener('submit', handleSumit);
+  }); // window.addEventListener('resize', handleResize)
 
-  function handleSumit() {
-    var formData = new URLSearchParams(new FormData(formElement)).toString();
-    fetch("/", {
-      method: 'post',
-      headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Requested-With": "XMLHttpRequest"
-      },
-      body: urlEncodedData
-    }).then(json).then(function (data) {
-      vm.state = data.subscribed ? "subscribed" : "failed";
-    }).catch(function (error) {});
-  }
+  window.addEventListener('click', function (e) {
+    if (document.body.dataset.form == "1") {
+      e.stopPropagation();
+
+      if (e.target.classList.contains('main')) {
+        (0, _dataFlip.default)(document.body, 'form');
+      }
+    }
+  }); // const formElement = document.querySelector('form')
+  // formElement.addEventListener('submit', handleSumit)
+  // function handleSumit(e) {
+  //   e.preventDefault()
+  //   const formData = new URLSearchParams(new FormData(formElement)).toString()
+  //   fetch("/", {
+  //     method: 'post',
+  //     headers: {
+  //       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+  //       "X-Requested-With": "XMLHttpRequest"
+  //     },
+  //     body: formData
+  //   })
+  //   .then()
+  //   .catch(function (error) {
+  //   });
+  // }
 };
 },{"./lib/data-flip":"js/lib/data-flip.js","paper":"../node_modules/paper/dist/paper-full.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -24141,7 +24174,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50619" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49478" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

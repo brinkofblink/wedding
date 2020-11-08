@@ -41,6 +41,11 @@ window.onload = function() {
       this.star.fillColor = this.colour
       this.star.opacity = 0
     }
+    reposition() {
+      this.x = this.getRandomInt(1, windowWidth)
+      this.y = this.getRandomInt(1, windowHeight)
+      this.star.position = new p.Point(this.x, this.y)
+    }
     update(event, twinkle) {
       // if (this.start < event.time || this.star.opacity < 1 && !this.complete) {
       //   this.star.opacity += (1 - (1 - this.star.opacity)) * 0.06 + 0.001
@@ -54,19 +59,29 @@ window.onload = function() {
     }
 
       }
-      // #c4d7e2, #718AA6, #1A2848 90%
-      var rectangle = new p.Shape.Rectangle({
-        point: [0, 0],
-        size: [windowWidth, windowHeight],
-        fillColor: {
-          gradient: {
-            stops: ['#e2dedb', '#a5b6ca', '#6795ca', '#5d5fb9'],
-          },
-          origin: [0, windowHeight],
-          destination: [0, 0]
-        }
-      })
 
+      let rectangle = null
+      const background = new p.Layer()
+
+
+      function drawSky() {
+        background.activate()
+        windowWidth = window.innerWidth
+        windowHeight = window.innerHeight
+        rectangle = new p.Shape.Rectangle({
+          point: [0, 0],
+          size: [windowWidth, windowHeight],
+          fillColor: {
+            gradient: {
+              stops: ['#e2dedb', '#a5b6ca', '#6795ca', '#5d5fb9'],
+            },
+            origin: [0, windowHeight],
+            destination: [0, 0]
+          }
+        })
+      }
+
+      drawSky()
 
       const sky = new p.Layer()
       sky.blendMode  = 'lighten'
@@ -81,14 +96,19 @@ window.onload = function() {
 
       p.view.draw()
 
-      p.view.onResize = function(event) {
-        console.log(event)
-        // windowWidth = window.innerWidth
-        // windowHeight = window.innerHeight
-        // p.view.width = windowWidth
-        // p.view.height = windowHeight
-        // rectangle.width = windowWidth
-        // rectangle.height = windowHeight
+      function handleResize() {
+        windowWidth = window.innerWidth
+        windowHeight = window.innerHeight
+        p.view.setViewSize(new paper.Size(windowWidth, windowHeight));
+        drawSky()
+        repositionStars()
+      }
+      window.addEventListener('resize', handleResize)
+
+      function repositionStars() {
+        for (var i = 0; i < totalStars; i++) {
+          stars[i].reposition()
+        }
       }
 
 
@@ -160,30 +180,39 @@ window.onload = function() {
       Flip(document.body, 'form')
     })
 
-    const formElement = document.queryCommandEnabled('form')
+    // window.addEventListener('resize', handleResize)
+    window.addEventListener('click', function(e) {
+
+      if (document.body.dataset.form == "1") {
+        e.stopPropagation()
+        if (e.target.classList.contains('main')) {
+          Flip(document.body, 'form')
+        }
+      }
+    })
+
+    // const formElement = document.querySelector('form')
 
 
 
-    formElement.addEventListener('submit', handleSumit)
+    // formElement.addEventListener('submit', handleSumit)
 
-    function handleSumit() {
-      const formData = new URLSearchParams(new FormData(formElement)).toString()
-      fetch("/", {
-        method: 'post',
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-          "X-Requested-With": "XMLHttpRequest"
-        },
-        body: urlEncodedData
-      })
-      .then(json)
-      .then(function (data) {
-        vm.state = data.subscribed ? "subscribed" : "failed"
-      })
-      .catch(function (error) {
-      });
+    // function handleSumit(e) {
+    //   e.preventDefault()
+    //   const formData = new URLSearchParams(new FormData(formElement)).toString()
+    //   fetch("/", {
+    //     method: 'post',
+    //     headers: {
+    //       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    //       "X-Requested-With": "XMLHttpRequest"
+    //     },
+    //     body: formData
+    //   })
+    //   .then()
+    //   .catch(function (error) {
+    //   });
 
-    }
+    // }
 
 
   }

@@ -5,7 +5,7 @@
   "scripts": {
     "upgrade-interactive": "npm-check --update",
     "dev": "parcel src/index.html --no-source-maps",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html --no-source-maps"
   },
   "engines": {
     "node": ">= 12.13.0"

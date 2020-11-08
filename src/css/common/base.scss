@@ -1,0 +1,74 @@
+::selection {
+
+}
+
+body {
+  min-height: 100vh;
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
+  display: flex;
+  max-width: 100vw;
+  // background: linear-gradient(0deg, #c4d7e2, #718AA6, #1A2848, #7d5050, #293242, #220638, #110527);
+  // background-size: 100% 400%;
+  // animation: sunset 20s;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+.wrap {
+  @include container();
+  @include tablet {
+  }
+}
+
+.outer-wrap:focus {
+  outline: none;
+}
+
+.skip-link {
+  color: white;
+  margin-bottom: 1rem;
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+
+  &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: inherit;
+  }
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+
+.pad-l {
+  padding-left: 2rem;
+  @include desktop-s {
+    padding-left: 4rem;
+  }
+}
+
+img {
+  &.lazyload {
+    opacity: 0;
+  }
+  &.loaded {
+    animation: fade-in $transition both;
+  }
+}

@@ -1,0 +1,11 @@
+.button {
+  @include button();
+  span {
+    margin-right: 1ch;
+    // color: var(--highlightColour2);
+  }
+}
+
+[class*="bg-"] .button.button--big {
+    @include font-size(large);
+}

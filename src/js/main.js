@@ -70,7 +70,7 @@ window.onload = function() {
         windowHeight = window.innerHeight
         rectangle = new p.Shape.Rectangle({
           point: [0, 0],
-          size: [windowWidth, windowHeight],
+          size: new p.Size(windowWidth, windowHeight),
           fillColor: {
             gradient: {
               stops: ['#e2dedb', '#a5b6ca', '#6795ca', '#5d5fb9'],
@@ -99,8 +99,12 @@ window.onload = function() {
       function handleResize() {
         windowWidth = window.innerWidth
         windowHeight = window.innerHeight
-        p.view.setViewSize(new paper.Size(windowWidth, windowHeight));
-        drawSky()
+        p.view.setViewSize(new p.Size(windowWidth, windowHeight));
+        background.activate()
+        rectangle.point = new p.Point(0, 0)
+        rectangle.setSize(windowWidth, windowHeight)
+        rectangle.fillColor.origin = new p.Point(0, windowHeight)
+        rectangle.fillColor.destination = new p.Point(0, 0)
         repositionStars()
       }
       window.addEventListener('resize', handleResize)

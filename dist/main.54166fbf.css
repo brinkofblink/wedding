@@ -150,6 +150,7 @@ body {
   min-height: -webkit-fill-available;
   display: flex;
   max-width: 100vw;
+  background: linear-gradient(0deg, #221038, #1e0c34, #0e0224, #0c0022);
 }
 
 html {
@@ -596,8 +597,12 @@ body[data-form="1"] .form {
 }
 body[data-form="1"] .form label, body[data-form="1"] .form p {
   color: #1D1033;
+  position: relative;
+  max-width: 100%;
 }
 body[data-form="1"] .form input {
+  position: relative;
+  max-width: 100%;
   color: #1D1033;
 }
 body[data-form="1"] .form:before {

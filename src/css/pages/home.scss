@@ -97,8 +97,12 @@ button {
     max-width: 28rem;
     label, p {
       color: c(blue, 0);
+      position: relative;
+      max-width: 100%;
     }
     input {
+      position: relative;
+      max-width: 100%;
       color: c(blue, 0);
     }
     padding: 2rem;

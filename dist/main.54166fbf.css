@@ -515,6 +515,9 @@ ul {
   width: 50%;
 }
 @media (min-width: 1100px) {
+  .icon {
+    width: auto;
+  }
   .icon svg {
     width: 15rem;
   }
@@ -709,12 +712,12 @@ label {
   font-size: 12px;
 }
 
-input, select {
+input, select, textarea {
   border: 1px solid #1D1033;
   border-radius: 3px;
   padding: 0.5rem;
 }
-input:focus, input:active, select:focus, select:active {
+input:focus, input:active, select:focus, select:active, textarea:focus, textarea:active {
   border: 1px solid #921faf;
 }
 
@@ -729,6 +732,10 @@ body[data-form="1"] input[type=submit] {
 }
 
 select {
+  margin-bottom: 1rem;
+}
+
+textarea {
   margin-bottom: 2rem;
 }
 

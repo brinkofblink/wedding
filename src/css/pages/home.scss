@@ -19,6 +19,7 @@
   position: relative;
   width: 50%;
   @include desktop {
+    width: auto;
     svg {
       width: 15rem;
     }
@@ -207,7 +208,7 @@ label {
   font-size: 12px;
 }
 
-input, select {
+input, select, textarea {
   // background-color: transparent;
   border: 1px solid c(blue, 0);
   border-radius: 3px;
@@ -228,6 +229,10 @@ input[type="submit"] {
 }
 
 select {
+  margin-bottom: 1rem;
+}
+
+textarea {
   margin-bottom: 2rem;
 }
 

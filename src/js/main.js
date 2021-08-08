@@ -1,4 +1,3 @@
-import Flip from "./lib/data-flip"
 const Paper = require('paper')
 const p = Paper
 Paper.install(window);
@@ -121,24 +120,6 @@ window.onload = function() {
       for (var i = 0; i < totalStars; i++) {
         stars[i].update(event)
       }
-      // if (rectangle.fillColor.gradient.stops[0].color.red > (85/255)) {
-      //   rectangle.fillColor.gradient.stops[0].color.red -= sunsetSpeed
-      // }
-      // if (rectangle.fillColor.gradient.stops[0].color.green > (39/255)) {
-      //   rectangle.fillColor.gradient.stops[0].color.green -= sunsetSpeed
-      // }
-      // if (rectangle.fillColor.gradient.stops[0].color.blue > (39/255)) {
-      //   rectangle.fillColor.gradient.stops[0].color.blue -= sunsetSpeed
-      // }
-      // if (rectangle.fillColor.gradient.stops[1].color.red > (21/255)) {
-      //   rectangle.fillColor.gradient.stops[1].color.red -= sunsetSpeed
-      // }
-      // if (rectangle.fillColor.gradient.stops[1].color.green > (30/255)) {
-      //   rectangle.fillColor.gradient.stops[1].color.green -= sunsetSpeed
-      // }
-      // if (rectangle.fillColor.gradient.stops[1].color.blue > (46/255)) {
-      //   rectangle.fillColor.gradient.stops[1].color.blue -= sunsetSpeed
-      // }
       if (rectangle.fillColor.gradient.stops[0].color.red > (34/255)) {
         rectangle.fillColor.gradient.stops[0].color.red -= sunsetSpeed
       }
@@ -176,45 +157,4 @@ window.onload = function() {
         rectangle.fillColor.gradient.stops[3].color.blue -= sunsetSpeed
       }
     }
-
-    const rsvp = document.querySelector(".rsvp")
-    rsvp.addEventListener('click', function() {
-      Flip(document.body, 'form')
-    })
-
-    // window.addEventListener('resize', handleResize)
-    window.addEventListener('click', function(e) {
-
-      if (document.body.dataset.form == "1") {
-        e.stopPropagation()
-        if (e.target.classList.contains('main')) {
-          Flip(document.body, 'form')
-        }
-      }
-    })
-
-    // const formElement = document.querySelector('form')
-
-
-
-    // formElement.addEventListener('submit', handleSumit)
-
-    // function handleSumit(e) {
-    //   e.preventDefault()
-    //   const formData = new URLSearchParams(new FormData(formElement)).toString()
-    //   fetch("/", {
-    //     method: 'post',
-    //     headers: {
-    //       "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-    //       "X-Requested-With": "XMLHttpRequest"
-    //     },
-    //     body: formData
-    //   })
-    //   .then()
-    //   .catch(function (error) {
-    //   });
-
-    // }
-
-
   }

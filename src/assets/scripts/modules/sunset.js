@@ -29,7 +29,7 @@ window.onload = function() {
       this.star = null
       this.complete = false
       this.moving = this.getRandomInt(0,100) > 97
-      this.direction = this.getRandomInt(0,314) / 100
+      this.direction = this.getRandomInt(0,628) / 100
       this.dx = 0
       this.dy = 0
     }

@@ -5,7 +5,7 @@
 const ENTRY_FILE_NAME = 'main.scss'
 
 const path = require('path')
-const sass = require('node-sass')
+const sass = require('sass')
 const CleanCSS = require('clean-css')
 const cssesc = require('cssesc')
 const isProd = process.env.ELEVENTY_ENV === 'production'
@@ -41,7 +41,14 @@ module.exports = class {
     // Minify & Optimize with CleanCSS in Production
     async minify(css) {
         return new Promise((resolve, reject) => {
-            resolve(css)
+            if (!isProd) {
+                resolve(css)
+            }
+            const minified = new CleanCSS().minify(css)
+            if (!minified.styles) {
+                return reject(minified.error)
+            }
+            resolve(minified.styles)
         })
     }
 

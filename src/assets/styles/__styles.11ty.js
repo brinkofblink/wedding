@@ -44,7 +44,7 @@ module.exports = class {
             if (!isProd) {
                 resolve(css)
             }
-            const minified = new CleanCSS().minify(css)
+            const minified = new CleanCSS({ inline: ['remote']}).minify(css)
             if (!minified.styles) {
                 return reject(minified.error)
             }
@@ -71,9 +71,9 @@ module.exports = class {
             font-family: monospace;
             font-size: 1.25rem;
             line-height:1.5;
-        } 
-        body::before { 
-            content: ''; 
+        }
+        body::before {
+            content: '';
             background: #000;
             top: 0;
             bottom: 0;
@@ -82,11 +82,11 @@ module.exports = class {
             opacity: 0.7;
             position: fixed;
         }
-        body::after { 
-            content: '${cssesc(error)}'; 
+        body::after {
+            content: '${cssesc(error)}';
             white-space: pre;
             display: block;
-            top: 0; 
+            top: 0;
             padding: 30px;
             margin: 50px;
             width: calc(100% - 100px);

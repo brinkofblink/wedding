@@ -18,9 +18,9 @@ module.exports = function (config) {
     })
 
     // Transforms
-    Object.keys(transforms).forEach((transformName) => {
-        config.addTransform(transformName, transforms[transformName])
-    })
+    // Object.keys(transforms).forEach((transformName) => {
+    //     config.addTransform(transformName, transforms[transformName])
+    // })
 
     // Shortcodes
     Object.keys(shortcodes).forEach((shortcodeName) => {

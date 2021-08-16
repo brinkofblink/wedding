@@ -28,6 +28,10 @@ window.onload = function() {
       this.twinkle = this.getRandomInt(0, 3) === 0
       this.star = null
       this.complete = false
+      this.moving = this.getRandomInt(0,100) > 97
+      this.direction = this.getRandomInt(0,314) / 100
+      this.dx = 0
+      this.dy = 0
     }
     getRandomInt = function(min, max) {
       return Math.floor(Math.random() * (max - min)) + min
@@ -39,6 +43,8 @@ window.onload = function() {
       this.star = new p.Shape.Circle(new p.Point(this.x, this.y), this.radius)
       this.star.fillColor = this.colour
       this.star.opacity = 0
+      this.dx = Math.cos(this.direction) * windowWidth / 700
+      this.dy = Math.sin(this.direction) * windowHeight / 1400
     }
     reposition() {
       this.x = this.getRandomInt(1, windowWidth)
@@ -46,15 +52,25 @@ window.onload = function() {
       this.star.position = new p.Point(this.x, this.y)
     }
     update(event, twinkle) {
-      // if (this.start < event.time || this.star.opacity < 1 && !this.complete) {
-      //   this.star.opacity += (1 - (1 - this.star.opacity)) * 0.06 + 0.001
-      // } else {
-      //   this.complete = true
-      // }
-      // if (this.complete) {
-        let change = 0.3 - 0.3 * Math.sin(2 * event.time + this.animationOffset)
-        this.star.opacity = change
-      // }
+      let change = 0.3 - 0.3 * Math.sin(2 * event.time + this.animationOffset)
+      this.star.opacity = change
+      if (this.moving) {
+        if (this.x + this.dx > windowWidth) {
+          this.x = 0
+        } else if (this.x + this.dx < 0) {
+          this.x = windowWidth
+        } else {
+          this.x += this.dx
+        }
+        if (this.y + this.dy > windowHeight) {
+          this.y = 0
+        } else if (this.y + this.dy < 0) {
+          this.y = windowHeight
+        } else {
+          this.y += this.dy
+        }
+        this.star.position = new p.Point(this.x, this.y)
+      }
     }
 
       }

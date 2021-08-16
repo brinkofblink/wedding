@@ -26,7 +26,8 @@
   }
   transition: background 0.2s ease, transform 0.2s ease;
   &:hover {
-      filter: brightness(1.2);
+      background-color: c(gold);
+      color: c(blue, 0);
   }
   &:focus {
     text-decoration: underline;
